@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "519976465176",
+    "firebase_url": "https://bon-trackpetite-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "bon-trackpetite",
+    "storage_bucket": "bon-trackpetite.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519976465176:android:30d752adf122148eee646d",
+        "android_client_info": {
+          "package_name": "pl.emilia.kura.bontrackpetite"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzegmU-8eY_lsy1I1WgB_f8nTJhb4JgxE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -26,8 +26,10 @@ class MainActivity : AppCompatActivity() {
 
         calendarView.setOnDateChangeListener (
             OnDateChangeListener { view, year, month, dayOfMonth ->
-                val date="$dayOfMonth - ${month+1} - $year"
-                val intent= Intent(this, DataLogDetails::class.java)
+                val date="$dayOfMonth-${month+1}-$year"
+                val intent= Intent(this, DataLogDetails::class.java).apply {
+                    putExtra("CHOSEN_DATE",date)
+                }
                 startActivity(intent)
             }
         )
