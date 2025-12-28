@@ -3,14 +3,27 @@ package pl.emilia.kura.bontrackpetite
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import pl.emilia.kura.bontrackpetite.model.WeightData
 
 class DataLogDetails : AppCompatActivity() {
     lateinit var btnBack: Button
     lateinit var passedDate:TextView
+    lateinit var timeView: TextView
+    lateinit var weightView: TextView
+
+    //firebase
+    lateinit var firebaseDatabase: FirebaseDatabase
+    lateinit var databaseReference: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,13 +37,42 @@ class DataLogDetails : AppCompatActivity() {
 
         btnBack=findViewById<Button>(R.id.btnBack)
         passedDate=findViewById<TextView>(R.id.passedDate)
+        timeView=findViewById<TextView>(R.id.timeView)
+        weightView=findViewById<TextView>(R.id.weightView)
 
+        //pass the data from 1st activity
         val date=intent.getStringExtra("CHOSEN_DATE")
 
         passedDate.text=date
 
+        //firebase
+        firebaseDatabase= FirebaseDatabase.getInstance()
+        databaseReference=firebaseDatabase.getReference("meals/${date}")
+
+        retrieveDataFromFirebase()
+
         btnBack.setOnClickListener {
             finish()
         }
+    }
+
+    private fun retrieveDataFromFirebase(){
+        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(dataSnapshot in snapshot.children){
+                    val data=dataSnapshot.getValue(WeightData::class.java)
+                    data?.let{
+                        timeView.text=it.time
+                        weightView.text="${it.weight}g"
+                    }
+                    break
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@DataLogDetails,"Failed to retrieve data: ${error.message}",
+                    Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }
