@@ -8,6 +8,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
     lateinit var calendarView: CalendarView
@@ -26,9 +28,11 @@ class MainActivity : AppCompatActivity() {
 
         calendarView.setOnDateChangeListener (
             OnDateChangeListener { view, year, month, dayOfMonth ->
-                val date="$year-${month + 1}-$dayOfMonth"
+                val formatter= DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                val date= LocalDate.of(year,month+1,dayOfMonth)
+                val formattedDate=date.format(formatter)
                 val intent= Intent(this, DataLogDetails::class.java).apply {
-                    putExtra("CHOSEN_DATE",date)
+                    putExtra("CHOSEN_DATE",formattedDate)
                 }
                 startActivity(intent)
             }
