@@ -8,18 +8,20 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import pl.emilia.kura.bontrackpetite.adapter.RowAdapter
 import pl.emilia.kura.bontrackpetite.model.WeightData
 
 class DataLogDetails : AppCompatActivity() {
     lateinit var btnBack: Button
     lateinit var passedDate:TextView
-    lateinit var timeView: TextView
-    lateinit var weightView: TextView
+    lateinit var recyclerView: RecyclerView
 
     //firebase
     lateinit var firebaseDatabase: FirebaseDatabase
@@ -37,8 +39,10 @@ class DataLogDetails : AppCompatActivity() {
 
         btnBack=findViewById<Button>(R.id.btnBack)
         passedDate=findViewById<TextView>(R.id.passedDate)
-        timeView=findViewById<TextView>(R.id.timeView)
-        weightView=findViewById<TextView>(R.id.weightView)
+        recyclerView=findViewById<RecyclerView>(R.id.recyclerView)
+
+        //Create layout for recyclerView
+        recyclerView.layoutManager= LinearLayoutManager(this)
 
         //pass the data from 1st activity
         val date=intent.getStringExtra("CHOSEN_DATE")
@@ -59,14 +63,15 @@ class DataLogDetails : AppCompatActivity() {
     private fun retrieveDataFromFirebase(){
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
+                val list=mutableListOf<WeightData>()
                 for(dataSnapshot in snapshot.children){
                     val data=dataSnapshot.getValue(WeightData::class.java)
                     data?.let{
-                        timeView.text=it.time
-                        weightView.text="${it.weight}g"
+                        list.add(it)
                     }
-                    break
                 }
+                //Assign list to the adapter
+                recyclerView.adapter= RowAdapter(list)
             }
 
             override fun onCancelled(error: DatabaseError) {
