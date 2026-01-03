@@ -1,7 +1,10 @@
 package pl.emilia.kura.bontrackpetite
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -17,11 +20,14 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import pl.emilia.kura.bontrackpetite.adapter.RowAdapter
 import pl.emilia.kura.bontrackpetite.model.WeightData
+import com.bumptech.glide.Glide
 
 class DataLogDetails : AppCompatActivity() {
     lateinit var btnBack: Button
     lateinit var passedDate:TextView
     lateinit var recyclerView: RecyclerView
+    lateinit var emptyListView: LinearLayout
+    lateinit var ivsadCat: ImageView
 
     //firebase
     lateinit var firebaseDatabase: FirebaseDatabase
@@ -40,6 +46,8 @@ class DataLogDetails : AppCompatActivity() {
         btnBack=findViewById<Button>(R.id.btnBack)
         passedDate=findViewById<TextView>(R.id.passedDate)
         recyclerView=findViewById<RecyclerView>(R.id.recyclerView)
+        emptyListView=findViewById<LinearLayout>(R.id.emptyListView)
+        ivsadCat=findViewById<ImageView>(R.id.ivsadCat)
 
         //Create layout for recyclerView
         recyclerView.layoutManager= LinearLayoutManager(this)
@@ -70,8 +78,23 @@ class DataLogDetails : AppCompatActivity() {
                         list.add(it)
                     }
                 }
-                //Assign list to the adapter
-                recyclerView.adapter= RowAdapter(list)
+                if(list.isEmpty()){
+                    recyclerView.visibility= View.GONE
+                    emptyListView.visibility=View.VISIBLE
+
+                    //Play cat GIF
+                    Glide
+                        .with(this@DataLogDetails)
+                        .asGif()
+                        .load(R.drawable.sad_cat)
+                        .into(ivsadCat)
+                }else {
+                    emptyListView.visibility=View.GONE
+                    recyclerView.visibility= View.VISIBLE
+
+                    //Assign list to the adapter
+                    recyclerView.adapter = RowAdapter(list)
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
