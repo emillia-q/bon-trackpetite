@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -28,6 +29,7 @@ class DataLogDetails : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
     lateinit var emptyListView: LinearLayout
     lateinit var ivsadCat: ImageView
+    lateinit var progressBar: ProgressBar
 
     //firebase
     lateinit var firebaseDatabase: FirebaseDatabase
@@ -48,6 +50,7 @@ class DataLogDetails : AppCompatActivity() {
         recyclerView=findViewById<RecyclerView>(R.id.recyclerView)
         emptyListView=findViewById<LinearLayout>(R.id.emptyListView)
         ivsadCat=findViewById<ImageView>(R.id.ivsadCat)
+        progressBar=findViewById<ProgressBar>(R.id.progressBar)
 
         //Create layout for recyclerView
         recyclerView.layoutManager= LinearLayoutManager(this)
@@ -78,6 +81,8 @@ class DataLogDetails : AppCompatActivity() {
                         list.add(it)
                     }
                 }
+                //The data are retrieved (or there are not any) --> we hide the progress bar
+                progressBar.visibility=View.GONE
                 if(list.isEmpty()){
                     recyclerView.visibility= View.GONE
                     emptyListView.visibility=View.VISIBLE
