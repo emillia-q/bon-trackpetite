@@ -12,61 +12,162 @@
         android:id="@+id/ivLogo"
         android:layout_width="210dp"
         android:layout_height="150dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/calendarLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/monthNavigation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        app:srcCompat="@drawable/logo_main" />
+        app:srcCompat="@drawable/logo_main"
+        app:layout_constraintVertical_bias="0.2"/>
 
     <LinearLayout
-        android:id="@+id/monthNavigation"
+        android:id="@+id/calendarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="40dp"
         android:gravity="center"
-        android:padding="8dp"
+        android:orientation="vertical"
+        android:background="@drawable/calendar_bg"
+        android:elevation="4dp"
+        android:paddingTop="4dp"
+        android:paddingHorizontal="4dp"
+        android:paddingBottom="16dp"
         app:layout_constraintTop_toBottomOf="@+id/ivLogo"
-        app:layout_constraintBottom_toTopOf="@+id/rvCalendar">
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <Button
-            android:id="@+id/btnPrevMonth"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:text="&lt;"
-            android:textColor="#000000" />
-
-        <TextView
-            android:id="@+id/tvMonthYear"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/monthNavigation"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#b890c4"
             android:gravity="center"
-            android:text="Jan 2026"
-            android:textColor="#f5d85f"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnNextMonth"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:text="&gt;"
-            android:textColor="#000000" />
+            <TextView
+                android:id="@+id/btnPrevMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="❮❮"
+                android:textColor="@color/button_text_select"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tvMonthYear"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="#f5d85f"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/btnNextMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="❯❯"
+                android:textColor="@color/button_text_select"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dayOfMonths"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingVertical="8dp">
+
+            <TextView
+                android:id="@+id/tvMon"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="M"
+                android:textColor="#f1db73"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="T"
+                android:textColor="#f5d85f"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvWed"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="W"
+                android:textColor="#f5d85f"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvThu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="T"
+                android:textColor="#f5d85f"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvFri"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="F"
+                android:textColor="#f5d85f"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvSat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="S"
+                android:textColor="#f5d85f"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvSun"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="S"
+                android:textColor="#BF3333"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCalendar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:paddingHorizontal="4dp" />
     </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCalendar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="16dp"
-        android:overScrollMode="never"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/monthNavigation" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

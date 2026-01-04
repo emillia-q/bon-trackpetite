@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
 import org.w3c.dom.Text
 import pl.emilia.kura.bontrackpetite.adapter.CalendarAdapter
+import pl.emilia.kura.bontrackpetite.model.CalendarDay
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -20,8 +21,8 @@ class MainActivity : AppCompatActivity() {
     //Custom calendar view
     private lateinit var calendarRecyclerView: RecyclerView
     private var selectedDate:java.time.LocalDate=java.time.LocalDate.now()
-    private lateinit var btnPrev: Button
-    private lateinit var btnNext: Button
+    private lateinit var btnPrev: TextView
+    private lateinit var btnNext: TextView
     private lateinit var tvMonthYear: TextView
 
 
@@ -42,8 +43,8 @@ class MainActivity : AppCompatActivity() {
         setMonthView()
 
         //Buttons initialization
-        btnPrev=findViewById<Button>(R.id.btnPrevMonth)
-        btnNext=findViewById<Button>(R.id.btnNextMonth)
+        btnPrev=findViewById<TextView>(R.id.btnPrevMonth)
+        btnNext=findViewById<TextView>(R.id.btnNextMonth)
         tvMonthYear=findViewById<TextView>(R.id.tvMonthYear)
 
         btnPrev.setOnClickListener {
@@ -64,8 +65,7 @@ class MainActivity : AppCompatActivity() {
         val daysInMonth=daysInMonthArray(selectedDate)
         val calendarAdapter= CalendarAdapter(daysInMonth){day->
             val formatter= DateTimeFormatter.ofPattern("yyyy-MM-dd")
-            val dateToPass = selectedDate.withDayOfMonth(day.toInt())
-            val formattedDate = dateToPass.format(formatter)
+            val formattedDate = day.format(formatter)
 
             val intent= Intent(this, DataLogDetails::class.java).apply {
                 putExtra("CHOSEN_DATE",formattedDate)
@@ -75,19 +75,32 @@ class MainActivity : AppCompatActivity() {
         calendarRecyclerView.adapter=calendarAdapter
     }
 
-    private fun daysInMonthArray(date: java.time.LocalDate): ArrayList<String>{
-        val daysInMonthArray= ArrayList<String>()
+    private fun daysInMonthArray(date: LocalDate): ArrayList<CalendarDay>{
+        val daysInMonthArray= ArrayList<CalendarDay>()
         val yearMonth=java.time.YearMonth.from(date)
         val daysInMonth=yearMonth.lengthOfMonth()
 
         val firstOfMonth=selectedDate.withDayOfMonth(1)
         val dayOfWeek=firstOfMonth.dayOfWeek.value //1-MON, 7-SUN
 
+        val prevMonth=selectedDate.minusMonths(1)
+        val daysInPrevMonth=prevMonth.lengthOfMonth()
+        val nextMonth=selectedDate.plusMonths(1)
+
         for(i in 1..35){
-            if(i<dayOfWeek||i>=daysInMonth+dayOfWeek)
-                daysInMonthArray.add("")
-            else
-                daysInMonthArray.add((i-dayOfWeek+1).toString())
+            if(i<dayOfWeek) { //Previous month
+                val dayNum=daysInPrevMonth-dayOfWeek+i+1
+                val prevMonthDate=prevMonth.withDayOfMonth(dayNum)
+                daysInMonthArray.add(CalendarDay(prevMonthDate,false))
+            }else if(i>=daysInMonth+dayOfWeek){ //Next month
+                val dayNum=i-daysInMonth-dayOfWeek+1
+                val nextMonthDate=nextMonth.withDayOfMonth(dayNum)
+                daysInMonthArray.add(CalendarDay(nextMonthDate,false))
+            }else { //Current month
+                val dayNum=i-dayOfWeek+1
+                val currentMonthDate=date.withDayOfMonth(dayNum)
+                daysInMonthArray.add(CalendarDay(currentMonthDate,true))
+            }
         }
         return daysInMonthArray
     }
