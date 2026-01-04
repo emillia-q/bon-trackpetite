@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import org.w3c.dom.Text
 import pl.emilia.kura.bontrackpetite.R
 import pl.emilia.kura.bontrackpetite.model.WeightData
 
