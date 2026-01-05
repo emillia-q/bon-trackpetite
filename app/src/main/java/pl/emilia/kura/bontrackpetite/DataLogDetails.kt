@@ -3,6 +3,7 @@ package pl.emilia.kura.bontrackpetite
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
@@ -22,9 +23,11 @@ import com.google.firebase.database.ValueEventListener
 import pl.emilia.kura.bontrackpetite.adapter.RowAdapter
 import pl.emilia.kura.bontrackpetite.model.WeightData
 import com.bumptech.glide.Glide
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class DataLogDetails : AppCompatActivity() {
-    lateinit var btnBack: Button
+    lateinit var btnBack: ImageButton
     lateinit var passedDate:TextView
     lateinit var recyclerView: RecyclerView
     lateinit var emptyListView: LinearLayout
@@ -45,7 +48,7 @@ class DataLogDetails : AppCompatActivity() {
             insets
         }
 
-        btnBack=findViewById<Button>(R.id.btnBack)
+        btnBack=findViewById<ImageButton>(R.id.btnBack)
         passedDate=findViewById<TextView>(R.id.passedDate)
         recyclerView=findViewById<RecyclerView>(R.id.recyclerView)
         emptyListView=findViewById<LinearLayout>(R.id.emptyListView)
@@ -55,10 +58,20 @@ class DataLogDetails : AppCompatActivity() {
         //Create layout for recyclerView
         recyclerView.layoutManager= LinearLayoutManager(this)
 
-        //pass the data from 1st activity
+        //Retrieve the data from 1st activity
         val date=intent.getStringExtra("CHOSEN_DATE")
 
-        passedDate.text=date
+        //Change the date format for more appealing to look at
+        if(date!=null){
+            //Again to LocalDate
+            val originalFromatter= DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            val dateObj= LocalDate.parse(date,originalFromatter)
+
+            //New format
+            val readableFormatter= DateTimeFormatter.ofPattern("dd MMM yyyy", java.util.Locale.getDefault())
+
+            passedDate.text=dateObj.format(readableFormatter)
+        }
 
         //firebase
         firebaseDatabase= FirebaseDatabase.getInstance()
