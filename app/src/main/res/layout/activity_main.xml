@@ -12,13 +12,13 @@
         android:id="@+id/ivLogo"
         android:layout_width="210dp"
         android:layout_height="150dp"
-        app:layout_constraintBottom_toTopOf="@+id/calendarLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:srcCompat="@drawable/logo_main"
-        app:layout_constraintVertical_bias="0.2"/>
+        app:layout_constraintVertical_bias="0.046"
+        app:srcCompat="@drawable/logo_main" />
 
     <LinearLayout
         android:id="@+id/calendarLayout"
@@ -26,15 +26,18 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="40dp"
-        android:gravity="center"
-        android:orientation="vertical"
         android:background="@drawable/calendar_bg"
         android:elevation="4dp"
-        android:paddingTop="4dp"
+        android:gravity="center"
+        android:orientation="vertical"
         android:paddingHorizontal="4dp"
+        android:paddingTop="4dp"
         android:paddingBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivLogo"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintVertical_bias="0.264">
 
         <LinearLayout
             android:id="@+id/monthNavigation"
@@ -163,6 +166,7 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
         </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCalendar"
             android:layout_width="match_parent"
