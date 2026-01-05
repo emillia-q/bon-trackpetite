@@ -87,13 +87,16 @@ class MainActivity : AppCompatActivity() {
         val daysInPrevMonth=prevMonth.lengthOfMonth()
         val nextMonth=selectedDate.plusMonths(1)
 
+        val longLayout=42
+        val shortLayout=35
+
         var longerLayout: Boolean
-        if(35>=daysInMonth+dayOfWeek-1)
+        if(shortLayout>=daysInMonth+dayOfWeek-1)
             longerLayout=false
         else
             longerLayout=true
 
-        for(i in 1..42){
+        for(i in 1..longLayout){
             if(i<dayOfWeek) { //Previous month
                 val dayNum=daysInPrevMonth-dayOfWeek+i+1
                 val prevMonthDate=prevMonth.withDayOfMonth(dayNum)
@@ -107,7 +110,7 @@ class MainActivity : AppCompatActivity() {
                 val currentMonthDate=date.withDayOfMonth(dayNum)
                 daysInMonthArray.add(CalendarDay(currentMonthDate,true))
             }
-            if(i==35 && !longerLayout)
+            if(i==shortLayout && !longerLayout)
                 break
         }
         return daysInMonthArray
