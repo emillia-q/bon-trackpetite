@@ -18,3 +18,8 @@ This makes it easier to track habits or share the information with a veterinaria
 * **UI/UX Feedback**: Integrated a **Progress Bar** to signal background data opeartions, ensuring the user is informed while the app communicates with Firebase.
 * **Vector Assets & Selectors**: Used for creating responsive and interactive UI with custom-styled buttons, icons and calendar cells.
 * **Java Time API**: Utilized `LocalDate` and `DateTimeFormatter` for accurate date manipulation and user-friendly formatting.
+
+---
+
+## 👩‍💻 Author
+**Emilia Kura**
