@@ -20,6 +20,8 @@ This makes it easier to track habits or share the information with a veterinaria
 * **Java Time API**: Utilized `LocalDate` and `DateTimeFormatter` for accurate date manipulation and user-friendly formatting.
 
 ---
+## 📝 Personal Note
+This is my first project developed in Kotlin. I created it to learn how to build a real Android app that connects to the cloud. It was a great challenge to figure out how to handle Firebase data and build the custom calendar, but I'm really happy with how it turned out and that it can be a useful tool.
 
 ## 👩‍💻 Author
 **Emilia Kura**
