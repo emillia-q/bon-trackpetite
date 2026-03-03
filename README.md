@@ -1,6 +1,10 @@
 # 🥘 Bon TrackPETite
 ## An Android application for monitoring pet nutrition through Firebase data integration.
-## Status: in development
+## 📺 Video Preview
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/510aae86-a7fe-4a5e-a647-fe59bc3517cf"></video>
+</div>
+
 
 ## 📲 About the Project
 **Bon TrackPETite** is an integral part of [Pet Appetite Monitor](https://github.com/emillia-q/pet-appetite-monitor.git) project. Its main purpose is to provide pet owners a **user-friendly interface** to access nutrition data collected by an **ESP-based hardware system**.
